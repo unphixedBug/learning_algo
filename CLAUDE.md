@@ -43,6 +43,7 @@
 ### Level 0
 
 - Explain why it is useful for this problem in the README of the exercise
+- Examples of real use cases
 - Give Python syntax that may be useful for this pattern in the README
 - Code snippets when I struggle
 - Easy problems only
@@ -67,19 +68,19 @@ learning_algo/
 ── attempts.csv # useful for spaced repetition
 ── docs/ # references
 ├── exercises/
-  ├── <pattern_name>/
-    ├── <exercise_name>/
-      ├── README.md # problem, examples, constraints
-      ├── solution.py # with structure, function to call
-      ├── test_solution.py # pytest tests, including edge cases and performance
-  ├── blind_exercises # need to understand the problem and find which pattern(s) to use
-    ├── <exercise_name>
-      ├── README.md # problem, examples, constraints
-      ├── solution.py # with structure, function to call
-      ├── test_solution.py # pytest tests, including edge cases and performance
+├── <pattern_name>/
+├── <exercise_name>/
+├── README.md # problem, examples, constraints
+├── solution.py # with structure, function to call
+├── test_solution.py # pytest tests, including edge cases and performance
+├── blind_exercises # need to understand the problem and find which pattern(s) to use
+├── <exercise_name>
+├── README.md # problem, examples, constraints
+├── solution.py # with structure, function to call
+├── test_solution.py # pytest tests, including edge cases and performance
 ```
 
 ## Other notes
 
 - I am not an English speaker, correct my english (in message or from my files) if it isn't
-- Standard library only (for problems and solutions)
+- I can only use standard libraries for my solutions
