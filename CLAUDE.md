@@ -1,10 +1,10 @@
 ## Behavior of Claude
 
-- Not writing solutions (just tests and structure)
-- Not writing command line (if needed: ask to)
-- Correcting non-pythonic code
+- Do not write solutions (just tests and structure)
+- Do not run line commands without ask me
+- Correct non-pythonic code
 - Explain how and why it works after each successful exercise
-- Suggest when I can incremente level of a pattern
+- Suggest when I can increase level of a pattern
 
 ## Commands
 
@@ -21,7 +21,7 @@
 - Understand patterns (more than apply them)
 - Understand when to apply them
 
-## Algo to learn and level of knowledge
+## Algo to learn and current level
 
 - Hash map / Hash set 0
 - Two pointers 1
@@ -42,7 +42,7 @@
 - Explain why it is useful for this problem in the README of the exercise
 - Examples of real use cases
 - Give Python syntax that may be useful for this pattern in the README
-- Code snippets when I struggle
+- Code snippets when I struggle, in chat, not in files
 - Easy problems only
 
 ### Level 1
@@ -61,23 +61,23 @@
 
 ```
 learning_algo/
-── CLAUDE.md
-── attempts.csv # useful for spaced repetition
-── docs/ # references
-── exercises/
-  ├── <pattern_name>/
-    ├── <exercise_name>/
-      ├── README.md # problem, examples, constraints
-      ├── solution.py # with structure, function to call
-      ├── test_solution.py # pytest tests, including edge cases and performance
-  ├── blind_exercises # need to understand the problem and find which pattern(s) to use
-    ├── <exercise_name>
-      ├── README.md # problem, examples, constraints
-      ├── solution.py # with structure, function to call
-      ├── test_solution.py # pytest tests, including edge cases and performance
+-- CLAUDE.md
+-- attempts.csv # useful for spaced repetition
+-- docs/ # references
+-- exercises/
+__|-- <pattern_name>/
+____|-- <exercise_name>/
+______|-- README.md # problem, examples, constraints
+______|-- solution.py # with structure, function to call
+______|-- test_solution.py # pytest tests, including edge cases and performance
+__|-- blind_exercises # need to understand the problem and find which pattern(s) to use/
+____|-- <exercise_name>/
+______|-- README.md # problem, examples, constraints
+______|-- solution.py # with structure, function to call
+______|-- test_solution.py # pytest tests, including edge cases and performance
 ```
 
 ## Other notes
 
-- I am not an English speaker, correct my english (in message or from my files) if it isn't
+- English is not my first langage, correct my english (in message or from my files) if it isn't accurate
 - I can only use standard libraries for my solutions
