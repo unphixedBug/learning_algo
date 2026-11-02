@@ -38,3 +38,5 @@ learning_algo/
 # Other notes
 
 I am not an english speaker, correct my english (in message or from my files) if it isn't
+
+changement test
