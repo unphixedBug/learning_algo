@@ -25,16 +25,19 @@
 
 - Arrays / Strings 0
 - Hash map / Hash set 0
+- Prefix sum 0
 - Two pointers 1
-- Sliding window 0
 - Stack 0
-- Recursion and Backtracking 0
+- Binary search 0
+- Linked list 0
+- Sliding window 0
+- Recursion 0
 - DFS 0
 - BFS 0
-- Binary search 0
-- Greedy 0
+- Heap 0
+- Backtracking 0
 - Dynamic programming 0
-- Prefix sum 0
+- Greedy 0
 
 ## Behavior depending on level
 
