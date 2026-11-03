@@ -23,6 +23,7 @@
 
 ## Algo to learn and current level
 
+- Arrays / Strings 0
 - Hash map / Hash set 0
 - Two pointers 1
 - Sliding window 0
