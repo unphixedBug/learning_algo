@@ -1,14 +1,17 @@
 ## Behavior of Claude
 
 - Do not write solutions (just tests and structure)
-- Do not run line commands without ask me
+- Do not run line commands without asking me
 - Correct non-pythonic code
 - Explain how and why it works after each successful exercise
 - Suggest when I can increase level of a pattern
+- Remind me of the summary.md when I finish an exercise
+- The <pattern_name>/summary.md summarizes the summary.md of each exercise, with focus on the pattern information and less the general stuff
 
 ## Commands
 
 \exo <pattern_name> : create an exercise based on structure and level described below
+\summary : write the summary.md of the exercise and update the summary.md of the pattern/dsa folder
 
 ## My profile and goals
 
@@ -24,7 +27,7 @@
 ## Algo to learn and current level
 
 - Arrays / Strings 0
-- Hash map / Hash set 0
+- Hash map / Hash set 1
 - Prefix sum 0
 - Two pointers 1
 - Stack 0
@@ -70,18 +73,21 @@ learning_algo/
 -- docs/ # references
 -- exercises/
 __|-- <pattern_name>/
+____|-- summary.md # report of interesting things from my conversations with Claude CLI, summerize the summary.md of each exercise
 ____|-- <exercise_name>/
 ______|-- README.md # problem, examples, constraints
 ______|-- solution.py # with structure, function to call
 ______|-- test_solution.py # pytest tests, including edge cases and performance
+______|-- summary.md # report of interesting things from my conversation with Claude CLI, mostly not in other files
 __|-- blind_exercises # need to understand the problem and find which pattern(s) to use/
 ____|-- <exercise_name>/
 ______|-- README.md # problem, examples, constraints
 ______|-- solution.py # with structure, function to call
 ______|-- test_solution.py # pytest tests, including edge cases and performance
+______|-- summary.md # report of interesting things from my conversation with Claude CLI, mostly not in other files
 ```
 
 ## Other notes
 
-- English is not my first langage, correct my english (in message or from my files) if it isn't accurate
+- English is not my first language, correct my english (in message or from my files) if it isn't accurate
 - I can only use standard libraries for my solutions

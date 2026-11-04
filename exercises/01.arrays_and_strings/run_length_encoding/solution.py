@@ -9,18 +9,18 @@ def run_length_encode(text: str) -> str:
         followed by its letter.
     """
     pointer = 0
-    compressed_string = ""
+    parts = []
 
     while pointer < len(text):
         current_char = text[pointer]
         current_count = 1
 
-        while text[pointer] == text[pointer] + 1:
+        while pointer + current_count < len(text) and current_char == text[pointer + current_count]:
             current_count += 1
 
         pointer += current_count
 
-        compressed_string += str(current_count)
-        compressed_string += current_char
+        parts.append(str(current_count))
+        parts.append(current_char)
 
-    return compressed_string
+    return "".join(parts)
