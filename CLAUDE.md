@@ -26,9 +26,9 @@
 
 ## Algo to learn and current level
 
-- Arrays / Strings 0
-- Hash map / Hash set 1
-- Prefix sum 0
+- Arrays / Strings 1
+- Hash map / Hash set 0
+- Prefix sum 1
 - Two pointers 1
 - Stack 0
 - Binary search 0
@@ -36,7 +36,7 @@
 - Sliding window 0
 - Recursion 0
 - DFS 0
-- BFS 0
+- BFS
 - Heap 0
 - Backtracking 0
 - Dynamic programming 0
@@ -49,6 +49,7 @@
 - Explain why it is useful for this problem in the README of the exercise
 - Examples of real use cases
 - Give Python syntax that may be useful for this pattern in the README
+- Code when I struggle, in chat, not in files
 - Code snippets when I struggle, in chat, not in files
 - Easy problems only
 

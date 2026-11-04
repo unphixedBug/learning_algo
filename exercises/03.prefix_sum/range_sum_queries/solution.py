@@ -8,4 +8,10 @@ def range_sum_queries(numbers: list[int], queries: list[tuple[int, int]]) -> lis
     Returns:
         One sum per query, in the same order as queries.
     """
-    pass
+
+    prefix = [0]
+    
+    for num in numbers:
+        prefix.append(prefix[-1] + num)
+    
+    return [prefix[right + 1] - prefix[left] for left, right in queries]
