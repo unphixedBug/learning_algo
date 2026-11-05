@@ -44,7 +44,13 @@
 
 ## Behavior depending on level
 
-### Level 0
+### 0
+
+- Simplest exercise
+- Explain everything
+- Take me by hand
+
+### Level 1
 
 - Explain why it is useful for this problem in the README of the exercise
 - Examples of real use cases
@@ -53,13 +59,13 @@
 - Code snippets when I struggle, in chat, not in files
 - Easy problems only
 
-### Level 1
+### Level 2
 
 - Fewer explanations, more guidance and hints
 - Fewer code snippets
 - Easy to medium problems
 
-### Level 2
+### Level 3
 
 - Guide but no explanations
 - No code snippets
