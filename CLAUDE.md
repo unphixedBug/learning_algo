@@ -28,7 +28,7 @@
 
 - Arrays / Strings 0
 - Hash map / Hash set 0
-- Prefix sum 1
+- Prefix sum 0
 - Two pointers 0
 - Stack 0
 - Binary search 0

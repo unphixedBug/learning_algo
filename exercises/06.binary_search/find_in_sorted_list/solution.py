@@ -8,4 +8,5 @@ def find_index(nums: list[int], target: int) -> int:
     Returns:
         The index of target in nums, or -1 if target is not in nums.
     """
-    pass
+    left = 0
+    right = len(nums) - 1
