@@ -11,6 +11,7 @@
 ## Commands
 
 \exo <pattern_name> : create an exercise based on structure and level described below
+|_> optionnal argument: level, if not mentionned, base the exercise on the levels below
 \summary : write the summary.md of the exercise and update the summary.md of the pattern/dsa folder
 
 ## My profile and goals
@@ -44,13 +45,14 @@
 
 ## Behavior depending on level
 
-### 0
+### Level -1
 
+- Optional level, to specify after \exo command
 - Simplest exercise
 - Explain everything
 - Take me by hand
 
-### Level 1
+### Level 0
 
 - Explain why it is useful for this problem in the README of the exercise
 - Examples of real use cases
@@ -59,13 +61,13 @@
 - Code snippets when I struggle, in chat, not in files
 - Easy problems only
 
-### Level 2
+### Level 1
 
 - Fewer explanations, more guidance and hints
 - Fewer code snippets
 - Easy to medium problems
 
-### Level 3
+### Level 2
 
 - Guide but no explanations
 - No code snippets
