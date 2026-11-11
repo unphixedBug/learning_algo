@@ -8,10 +8,15 @@
 - Remind me of the summary.md when I finish an exercise
 - The <pattern_name>/summary.md summarizes the summary.md of each exercise, with focus on the pattern information and less the general stuff
 
+### Contexte temporaire
+
+Uniquement dans le chat, tu parleras français car je suis malade et ai besoin de mettre mon peu de cerveau dans l'algo plutôt que l'anglais
+Dans les fichiers, reste en anglais (car ça restera après ma maladie)
+
 ## Commands
 
 \exo <pattern_name> : create an exercise based on structure and level described below
-|_> optionnal argument: level, if not mentionned, base the exercise on the levels below
+|\*> optionnal argument: level, if not mentionned, base the exercise on the levels below
 \summary : write the summary.md of the exercise and update the summary.md of the pattern/dsa folder
 
 ## My profile and goals

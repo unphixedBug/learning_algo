@@ -60,6 +60,8 @@ while position < len(items):
 - **Empty input:** make sure the code doesn't read `items[0]` before checking that the input has items.
 - **Building a string:** `append` the pieces to a list, then call `"".join(parts)` once after the loop. `result += piece` risks `O(n²)` because strings are immutable.
 - **Slices copy:** `text[i:j]` costs `O(j - i)`, so slicing inside a loop can make the scan slower than it looks.
+- **Only updating the "best so far" when an event ends:** this misses the group in progress when the data ends before the event happens (e.g. a run of `1`s with no trailing `0`). Updating the best value on **every item** removes this special case entirely, instead of needing an extra step after the loop.
+- **A constant-factor cost is not a complexity problem:** e.g. `max(a, b)` vs. `if a > b: ...` differ by a tiny, fixed amount of time per call (function-call overhead), not by complexity class. Don't trade readability for that.
 
 ## In an interview
 
@@ -71,7 +73,8 @@ while position < len(items):
 | Exercise | Difficulty | What it teaches | Where I struggled |
 |---|---|---|---|
 | `run_length_encoding` | Easy | Finding groups of consecutive items | The `and` order and `join` |
+| `max_consecutive_ones` | Easy | Tracking a current run and the best run with one comparison per item | Resetting the run on the breaking event, and updating the best value on every item (not only when a run ends) |
 
 ## Next step
 
-Stay at level 0 for now. Move to level 1 after solving the next exercise with few hints.
+Stay at level 0 for now. Move to level 1 once an exercise needs little to no help on the core logic.
