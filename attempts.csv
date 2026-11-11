@@ -1,4 +1,5 @@
 date,pattern,exercise
+11/11,prefix_sum,pivot_index
 11/11,hashing,first_unique_char
 11/11,arrays_and_string,max_consecutive_ones
 06/11,binary_search,find_on_sorted_list

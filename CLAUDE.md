@@ -60,6 +60,7 @@ Dans les fichiers, reste en anglais (car ça restera après ma maladie)
 ### Level 0
 
 - Explain why it is useful for this problem in the README of the exercise
+- Explain the problem it solves
 - Examples of real use cases
 - Give Python syntax that may be useful for this pattern in the README
 - Code when I struggle, in chat, not in files
