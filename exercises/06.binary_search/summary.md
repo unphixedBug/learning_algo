@@ -65,12 +65,32 @@ return -1
 | `x in nums`, `nums.index(x)` | `O(n)` |
 | `nums[a:b]` | `O(b - a)`, because it copies the items |
 
+## Finding a boundary, not only a value
+
+The same loop answers a second question: **where would the target go?** When the target is missing, the loop ends with `left == right`, and that index is the insertion point.
+
+It works because of an **invariant**, a fact that every step keeps true:
+
+```
+           left            right
+             |               |
+  [ < target | unknown zone  | > target ]
+```
+
+- `left = middle + 1` only happens when `nums[middle] < target`, so everything before `left` is smaller.
+- `right = middle` only happens when `nums[middle] > target`, so everything from `right` on is bigger.
+
+When the unknown zone is empty, `left` is the border between "smaller" and "bigger". So after the loop, `return left` (not `-1`) gives the insertion position. `bisect.bisect_left` from the stdlib does exactly this.
+
+This "find the border" view is the key to many medium problems: the first value `>= x`, the first bad version, the smallest size that fits.
+
 ## Traps
 
 - **The zone doesn't shrink:** `//` rounds down, so `middle` can be equal to `left`. With `left = middle`, the loop runs forever. A frozen `pytest` often means this.
 - **Mixing conventions:** for example `right = len(nums)` with `left <= right` reads `nums[len(nums)]` and crashes.
 - **Returning the value instead of the index:** `nums[middle]` is the value, `middle` is the position.
 - **Slicing the list:** the code looks shorter, but it costs `O(n)` and the indexes are wrong.
+- **`while left != right` instead of `left < right`:** it works when the updates are correct, but if `left` ever jumps over `right`, it keeps looping or crashes. `<` says "the zone is not empty" and stops safely.
 
 ## In an interview
 
@@ -83,7 +103,8 @@ return -1
 | Exercise | Difficulty | What it teaches | Where I struggled |
 |---|---|---|---|
 | `find_in_sorted_list` | Easy | Searching a sorted list with `left` and `right` as edges of a zone, without copying | Seeing the subarray as indexes instead of a copy, and why `left` needs `middle + 1` |
+| `search_insert_position` | Easy | When the target is missing, `left` ends at the insertion point (the invariant) | `left = middle` came back; `left != right` vs `left < right`; why `return left` |
 
 ## Next step
 
-Stay at level 0 for now. The next idea is a search where the answer is a **position**, not an exact value (for example, where to insert a target). Move to level 1 if that exercise goes mostly alone.
+Stay at level 0 for one more exercise: a sorted list **with duplicates**, where you must find the **first** occurrence (the boundary between `< target` and `>= target`). The `+ 1` is not automatic yet. Move to level 1 if that exercise goes mostly alone.

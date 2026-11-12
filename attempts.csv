@@ -1,4 +1,5 @@
 date,pattern,exercise
+12/11,binary_search,search_insert_position
 12/11,stack,score_keeper
 11/11,prefix_sum,pivot_index
 11/11,hashing,first_unique_char
