@@ -1,142 +1,141 @@
 # Max Profit From One Trade
 
-**Pattern:** Arrays and strings (single-pass scan, "best so far") | **Difficulty:** Easy
+**Pattern :** Arrays and strings (single-pass scan, "best so far") | **Difficulté :** Easy
 
-## Problem
+## Problème
 
-You are given the price of an item on each day, in order. You may **buy one item on one day**
-and **sell it on a later day**.
+On te donne le prix d'un article pour chaque jour, dans l'ordre. Tu peux **acheter un article un jour**
+et **le revendre un jour ultérieur**.
 
-Return the largest profit you can make. If no trade makes money, return `0`.
+Retourne le plus grand profit possible. Si aucune transaction ne rapporte d'argent, retourne `0`.
 
-## Function to write
+## Fonction à écrire
 
 ```python
 def max_profit(prices: list[int]) -> int:
 ```
 
-## Examples
+## Exemples
 
-### Example 1
+### Exemple 1
 
 ```
 prices = [8, 2, 6, 4, 9, 3]
 ```
 
-Output: `7` (buy at `2`, sell at `9`)
+Sortie : `7` (achat à `2`, vente à `9`)
 
-### Example 2: the lowest price comes after the highest price
+### Exemple 2 : le prix le plus bas arrive après le prix le plus haut
 
 ```
 prices = [5, 9, 1, 3]
 ```
 
-Output: `4` (buy at `5`, sell at `9`)
+Sortie : `4` (achat à `5`, vente à `9`)
 
-`9 - 1 = 8` is not allowed, because you can't sell before you buy.
+`9 - 1 = 8` n'est pas autorisé, car on ne peut pas vendre avant d'acheter.
 
-### Example 3: the price only goes down
+### Exemple 3 : le prix ne fait que baisser
 
 ```
 prices = [9, 7, 4, 1]
 ```
 
-Output: `0` (the best choice is not to trade)
+Sortie : `0` (le meilleur choix est de ne pas faire de transaction)
 
-### Example 4: an empty list
+### Exemple 4 : une liste vide
 
 ```
 prices = []
 ```
 
-Output: `0`
+Sortie : `0`
 
-## Constraints
+## Contraintes
 
 - `0 <= len(prices) <= 400000`
 - `0 <= prices[i] <= 10000`
-- You must sell on a **strictly later** day than the day you buy
-- `prices` must not be modified
-- Target complexity: `O(n)` time and `O(1)` extra space
-- Standard library only
+- Tu dois vendre un jour **strictement postérieur** au jour d'achat
+- `prices` ne doit pas être modifiée
+- Complexité visée : `O(n)` en temps et `O(1)` en espace supplémentaire
+- Standard library uniquement
 
-## Why a single-pass scan is useful for this problem
+## Pourquoi un single-pass scan est utile pour ce problème
 
-The direct approach is to try every pair of days. It works, but with 400,000 days, that is
-about 80 billion pairs.
+L'approche directe consiste à essayer chaque paire de jours. Ça fonctionne, mais avec 400 000 jours,
+ça fait environ 80 milliards de paires.
 
-A scan avoids this because most of those pairs can never be the best answer. When you reach a
-day, you don't need to remember **every** earlier price. A small summary of the past is enough
-to know the best profit you could make by selling today.
+Un scan évite ça, car la plupart de ces paires ne peuvent jamais être la meilleure réponse. Quand tu
+arrives à un jour, tu n'as pas besoin de te souvenir de **tous** les prix précédents. Un petit résumé
+du passé suffit pour connaître le meilleur profit possible en vendant aujourd'hui.
 
-This is the "best so far" form of the scan. In `run_length_encoding`, what you remembered was
-about the **current group**. Here, it's about **everything you have read so far**.
+C'est la forme "best so far" du scan. Dans `run_length_encoding`, ce que tu retenais concernait le
+**groupe courant**. Ici, ça concerne **tout ce que tu as lu jusqu'à présent**.
 
-**Real use cases:**
+**Cas d'usage réels :**
 
-- **Finance:** finding the largest gain in a price history, where the buy must come before the sell.
-- **Weather:** finding the largest temperature rise over a period, where the low must come before the high.
-- **Monitoring:** tracking the largest increase in a server's memory use from a stream of measurements, without storing them all.
+- **Finance :** trouver le plus grand gain dans un historique de prix, où l'achat doit précéder la vente.
+- **Météo :** trouver la plus forte hausse de température sur une période, où le minimum doit précéder le maximum.
+- **Monitoring :** suivre la plus forte augmentation de l'utilisation mémoire d'un serveur à partir d'un flux de mesures, sans toutes les stocker.
 
-**How to recognize this form of the scan:**
+**Comment reconnaître cette forme de scan :**
 
-- The answer depends on a pair of items, and their **order** matters (one must come before the other)
-- The words **best**, **largest**, **smallest** or **so far** appear
-- The direct solution compares every pair, which is `O(n²)`
-- At each item, a small summary of the past is enough to make a decision
+- La réponse dépend d'une paire d'éléments, et leur **ordre** compte (l'un doit venir avant l'autre)
+- Les mots **best**, **largest**, **smallest** ou **so far** (meilleur, plus grand, plus petit, jusqu'ici) apparaissent
+- La solution directe compare chaque paire, ce qui est `O(n²)`
+- À chaque élément, un petit résumé du passé suffit pour prendre une décision
 
-## Useful Python syntax
+## Syntaxe Python utile
 
 ```python
-# Looping over the values
+# Boucler sur les valeurs
 for price in prices:
     ...
 
-# Skipping the first item without copying the list
+# Sauter le premier élément sans copier la liste
 for i in range(1, len(prices)):
     price = prices[i]
 
-# Comparing two values
+# Comparer deux valeurs
 min(3, 7)                   # 3
 max(3, 7)                   # 7
 
-# Checking if a list is empty
+# Vérifier si une liste est vide
 if not prices:
     ...
 
-# Assigning a starting value that any real number can beat
-float("inf")                # larger than any number
+# Donner une valeur de départ que n'importe quel nombre réel peut battre
+float("inf")                # plus grand que n'importe quel nombre
 ```
 
-**The cost of common operations:**
+**Le coût des opérations courantes :**
 
-| Operation | Cost | Why |
+| Opération | Coût | Pourquoi |
 |---|---|---|
-| `min(a, b)` | `O(1)` | Compares two values |
-| `min(prices)` | `O(n)` | Reads the whole list |
-| `prices[i:]` | `O(n - i)` | A slice **copies** the items |
-| `max(prices[i:])` inside a loop | `O(n²)` overall | The cost above, repeated for every item |
+| `min(a, b)` | `O(1)` | Compare deux valeurs |
+| `min(prices)` | `O(n)` | Lit toute la liste |
+| `prices[i:]` | `O(n - i)` | Un slice **copie** les éléments |
+| `max(prices[i:])` dans une boucle | `O(n²)` au total | Le coût ci-dessus, répété pour chaque élément |
 
-## Before you code
+## Avant de coder
 
-Answer these on paper, using `[5, 9, 1, 3]`. Tell Claude your answers if you want to check them.
+Réponds à ces questions sur papier, avec `[5, 9, 1, 3]`. Donne tes réponses à Claude si tu veux les vérifier.
 
-1. Why is `max(prices) - min(prices)` a wrong answer here? Which rule does it break?
-2. Imagine you are on the last day, at price `3`, and you decide to sell. Which single earlier
-   price do you want to know? Do you need the other earlier prices?
-3. So, while reading from left to right, which **two pieces of information** do you need to
-   remember at each moment?
-4. For each day, you can update what you remember first, or compute the profit first. Try both
-   orders on `[9, 7, 4, 1]`. Does the order change the answer? Why or why not?
-5. In `run_length_encoding`, nested loops were still `O(n)`. Why would a nested loop that tries
-   every pair of days here be `O(n²)`?
+1. Pourquoi `max(prices) - min(prices)` est-il une mauvaise réponse ici ? Quelle règle est enfreinte ?
+2. Imagine que tu es au dernier jour, au prix `3`, et que tu décides de vendre. Quel prix précédent
+   (un seul) veux-tu connaître ? As-tu besoin des autres prix précédents ?
+3. Donc, en lisant de gauche à droite, quelles **deux informations** dois-tu retenir à chaque instant ?
+4. Pour chaque jour, tu peux d'abord mettre à jour ce que tu retiens, ou d'abord calculer le profit.
+   Essaie les deux ordres sur `[9, 7, 4, 1]`. L'ordre change-t-il la réponse ? Pourquoi ?
+5. Dans `run_length_encoding`, des nested loops restaient `O(n)`. Pourquoi une nested loop qui essaie
+   chaque paire de jours serait-elle `O(n²)` ici ?
 
 <details>
-<summary>Hint: how to structure your code</summary>
+<summary>Indice : comment structurer ton code</summary>
 
-Use the four questions from `exercises/01.arrays_and_strings/summary.md`: what do I remember,
-which event changes it, what do I do when it happens, and is anything left after the loop?
+Utilise les quatre questions de `exercises/01.arrays_and_strings/summary.md` : qu'est-ce que je retiens,
+quel événement le modifie, que fais-je quand il se produit, et reste-t-il quelque chose après la boucle ?
 
 </details>
 
-Stuck? Ask Claude for a code snippet of the part that blocks you.
+Bloqué ? Demande à Claude un code snippet pour la partie qui te bloque.
