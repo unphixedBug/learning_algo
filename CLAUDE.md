@@ -10,8 +10,8 @@
 
 ### Contexte temporaire
 
-Uniquement dans le chat, tu parleras français car je suis malade et ai besoin de mettre mon peu de cerveau dans l'algo plutôt que l'anglais
-Dans les fichiers, reste en anglais (car ça restera après ma maladie)
+Il me reste plus beaucoup de temps, je dois mettre davantage mon cerveau dans l'algorithmie que dans l'anglais, alors à partir de maintenant, français dans le chat/cli et dans les .md des exo (on traduira les .md plus tard)
+Les summary restent en anglais
 
 ## Commands
 
@@ -36,7 +36,7 @@ Dans les fichiers, reste en anglais (car ça restera après ma maladie)
 - Hash map / Hash set 0
 - Prefix sum 0
 - Two pointers 0
-- Stack 0
+- Stack 1
 - Binary search 0
 - Linked list 0
 - Sliding window 0

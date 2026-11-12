@@ -1,162 +1,166 @@
 # Score Keeper
 
-**Pattern:** Stack | **Difficulty:** Easy
+**Pattern :** Stack (pile) | **Difficulté :** Facile
 
-## Problem
+## Problème
 
-You are keeping the score of a game, one round at a time. You are given a list of
-**operations**, applied in order to a running **record** of round scores:
+Tu tiens le score d'une partie, une manche à la fois. On te donne une liste
+d'**opérations**, appliquées dans l'ordre à un **registre** (record) des scores des manches :
 
-- A string that looks like a number, e.g. `"5"` or `"-2"`: this round's score is that
-  number. Add it to the record.
-- `"+"`: this round's score is the **sum of the last two scores** in the record. Add it
-  to the record (the two earlier scores stay in the record too).
-- `"D"`: this round's score is **double the last score** in the record. Add it to the
-  record.
-- `"C"`: **cancel** the last score in the record: remove it. This operation adds nothing.
+- Une chaîne qui ressemble à un nombre, par ex. `"5"` ou `"-2"` : le score de cette manche
+  est ce nombre. Ajoute-le au registre.
+- `"+"` : le score de cette manche est la **somme des deux derniers scores** du registre.
+  Ajoute-le au registre (les deux scores précédents restent aussi dans le registre).
+- `"D"` : le score de cette manche est le **double du dernier score** du registre. Ajoute-le
+  au registre.
+- `"C"` : **annule** le dernier score du registre : supprime-le. Cette opération n'ajoute rien.
 
-Return the **sum of every score left in the record** once all operations are applied.
+Renvoie la **somme de tous les scores restant dans le registre** une fois toutes les
+opérations appliquées.
 
-## Function to write
+## Fonction à écrire
 
 ```python
 def final_score(operations: list[str]) -> int:
 ```
 
-## Examples
+## Exemples
 
-### Example 1
+### Exemple 1
 
 ```
 operations = ["5", "2", "C", "D", "+"]
 ```
 
-Walking through it:
+Déroulé pas à pas :
 
-| Operation | Record after |
+| Opération | Registre après |
 |---|---|
 | `"5"` | `[5]` |
 | `"2"` | `[5, 2]` |
-| `"C"` | `[5]` (the `2` is cancelled) |
-| `"D"` | `[5, 10]` (double of `5`) |
-| `"+"` | `[5, 10, 15]` (sum of `5` and `10`) |
+| `"C"` | `[5]` (le `2` est annulé) |
+| `"D"` | `[5, 10]` (double de `5`) |
+| `"+"` | `[5, 10, 15]` (somme de `5` et `10`) |
 
-Output: `30` (`5 + 10 + 15`)
+Sortie : `30` (`5 + 10 + 15`)
 
-### Example 2
+### Exemple 2
 
 ```
 operations = ["5", "-2", "4", "C", "D", "9", "+", "+"]
 ```
 
-Output: `27`
+Sortie : `27`
 
-### Example 3: a single round
+### Exemple 3 : une seule manche
 
 ```
 operations = ["1"]
 ```
 
-Output: `1`
+Sortie : `1`
 
-### Example 4: no operations at all
+### Exemple 4 : aucune opération
 
 ```
 operations = []
 ```
 
-Output: `0`
+Sortie : `0`
 
-## Constraints
+## Contraintes
 
 - `0 <= len(operations) <= 100000`
-- Each operation is `"+"`, `"D"`, `"C"`, or a string representing an integer in
+- Chaque opération est `"+"`, `"D"`, `"C"`, ou une chaîne représentant un entier dans
   `[-30000, 30000]`
-- The input is always **valid**: `"+"` never appears when the record has fewer than two
-  scores, and `"D"` or `"C"` never appear when the record is empty
-- Target complexity: `O(n)` time
-- Standard library only
+- L'entrée est toujours **valide** : `"+"` n'apparaît jamais quand le registre contient moins
+  de deux scores, et `"D"` ou `"C"` n'apparaissent jamais quand le registre est vide
+- Complexité visée : `O(n)` en temps
+- Bibliothèque standard uniquement
 
-## Why a stack is useful for this problem
+## Pourquoi une pile est utile pour ce problème
 
-Three of the four operations only care about the **most recently added** scores:
-`"D"` reads the last one, `"+"` reads the last two, and `"C"` removes the last one. None of
-them ever touch a score that is further back. That is the LIFO rule again: **the last score
-in is the first one these operations look at or remove**.
+Trois des quatre opérations ne s'intéressent qu'aux scores **ajoutés le plus récemment** :
+`"D"` lit le dernier, `"+"` lit les deux derniers, et `"C"` supprime le dernier. Aucune ne
+touche jamais un score plus ancien. C'est encore la règle LIFO : **le dernier score entré est
+le premier que ces opérations regardent ou retirent**.
 
-A single running total is not enough here. Once you add a score into a total, the total
-no longer remembers that score on its own — so when `"C"` says "undo the last round," there
-is nothing left to subtract back out. You need the actual **history**, in order, not just
-its sum. A stack is exactly that history, with the most recent round always on top, in reach.
+Un simple total cumulé ne suffit pas ici. Une fois qu'un score est ajouté à un total, le total
+ne se souvient plus de ce score individuellement — donc quand `"C"` dit « annule la dernière
+manche », il n'y a plus rien à soustraire. Il te faut le véritable **historique**, dans
+l'ordre, pas seulement sa somme. Une pile est exactement cet historique, avec la manche la
+plus récente toujours au sommet, à portée de main.
 
-**Real use cases:**
+**Cas d'usage réels :**
 
-- **Undo / redo:** a text editor or drawing app pushes each action onto a stack. Ctrl+Z pops
-  the most recent one, exactly like `"C"` here.
-- **Version control:** `git revert` or `git reset --soft HEAD~1` undoes the most recent
-  commit first, never one from the middle of the history.
-- **Calculators and spreadsheets:** some operations (like `"D"` and `"+"` above) combine the
-  most recent results instead of asking you to re-enter them.
-- **Call stacks:** when a function returns, control goes back to whichever function called
-  it most recently, not to some earlier one.
+- **Annuler / rétablir :** un éditeur de texte ou un logiciel de dessin empile chaque action.
+  Ctrl+Z dépile la plus récente, exactement comme `"C"` ici.
+- **Gestion de versions :** `git revert` ou `git reset --soft HEAD~1` annule d'abord le commit
+  le plus récent, jamais un commit au milieu de l'historique.
+- **Calculatrices et tableurs :** certaines opérations (comme `"D"` et `"+"` ci-dessus)
+  combinent les résultats les plus récents au lieu de te demander de les ressaisir.
+- **Pile d'appels :** quand une fonction se termine, le contrôle revient à la fonction qui l'a
+  appelée le plus récemment, pas à une plus ancienne.
 
-**How to recognize a stack problem:**
+**Comment reconnaître un problème de pile :**
 
-- An operation only ever reads or removes the **most recent** item(s), never an older one
-- The problem explicitly describes **undoing**, **cancelling**, or **replaying** history
-- You need the actual past values, not just a running total, because a later step can
-  reach back and change what came before
+- Une opération ne lit ou ne retire que le(s) élément(s) **le(s) plus récent(s)**, jamais un
+  plus ancien
+- Le problème parle explicitement d'**annuler**, de **supprimer** ou de **rejouer** un historique
+- Tu as besoin des vraies valeurs passées, pas seulement d'un total cumulé, parce qu'une étape
+  ultérieure peut revenir en arrière et modifier ce qui précède
 
-## Useful Python syntax
+## Syntaxe Python utile
 
 ```python
 record = []
-record.append(5)        # push: [5]
-record.append(-2)       # push: [5, -2]
+record.append(5)        # empiler (push) : [5]
+record.append(-2)       # empiler (push) : [5, -2]
 
-record[-1]              # peek the top: -2 (does not remove it)
-record[-2]              # peek one below the top: 5 (does not remove it either)
+record[-1]              # regarder le sommet : -2 (ne le retire pas)
+record[-2]              # regarder juste sous le sommet : 5 (ne le retire pas non plus)
 
-record.pop()            # pop: returns -2, record is now [5]
+record.pop()            # dépiler (pop) : renvoie -2, record vaut maintenant [5]
 
-# Telling a number apart from an operation symbol
+# Distinguer un nombre d'un symbole d'opération
 op = "-2"
-op in ("+", "D", "C")   # False -> op is a number, not a symbol
-int(op)                  # -2 (int() parses the leading "-" correctly)
+op in ("+", "D", "C")   # False -> op est un nombre, pas un symbole
+int(op)                  # -2 (int() gère correctement le "-" initial)
 
-sum(record)              # adds up every item currently on the stack
+sum(record)              # additionne tous les éléments actuellement dans la pile
 ```
 
-**The cost of common operations:**
+**Coût des opérations courantes :**
 
-| Operation | Cost | Why |
+| Opération | Coût | Pourquoi |
 |---|---|---|
-| `record.append(x)` | `O(1)` on average | Adds at the end of a list |
-| `record.pop()` | `O(1)` | Removes from the end, nothing else moves |
-| `record[-1]`, `record[-2]` | `O(1)` | Goes straight to the position |
-| `sum(record)` | `O(n)` | Has to add every item once |
+| `record.append(x)` | `O(1)` en moyenne | Ajoute à la fin d'une liste |
+| `record.pop()` | `O(1)` | Retire à la fin, rien d'autre ne bouge |
+| `record[-1]`, `record[-2]` | `O(1)` | Accès direct à la position |
+| `sum(record)` | `O(n)` | Doit additionner chaque élément une fois |
 
-## Before you code
+## Avant de coder
 
-Answer these on paper. Tell Claude your answers if you want to check them.
+Réponds à ces questions sur papier. Donne tes réponses à Claude si tu veux les vérifier.
 
-1. For each kind of operation (`"5"`, `"+"`, `"D"`, `"C"`), does it push to the record, pop
-   from it, both, or neither?
-2. For `"+"`, the record grows from two scores to three, not from two to one. Which existing
-   scores stay, and which one is new?
-3. Walk through `operations = ["5", "-2", "4", "C", "D", "9", "+", "+"]` by hand, drawing the
-   record after each operation. What is the final record, and what does it sum to?
-4. If you kept a single running total instead of a list, what exact piece of information
-   would you be missing the moment `"C"` needs to undo the last round?
-5. What should the function return when `operations` is empty?
+1. Pour chaque type d'opération (`"5"`, `"+"`, `"D"`, `"C"`), est-ce qu'elle empile dans le
+   registre, dépile, les deux, ou aucun des deux ?
+2. Pour `"+"`, le registre passe de deux scores à trois, pas de deux à un. Quels scores
+   existants restent, et lequel est nouveau ?
+3. Déroule `operations = ["5", "-2", "4", "C", "D", "9", "+", "+"]` à la main, en dessinant le
+   registre après chaque opération. Quel est le registre final, et quelle est sa somme ?
+4. Si tu gardais un seul total cumulé au lieu d'une liste, quelle information précise te
+   manquerait au moment où `"C"` doit annuler la dernière manche ?
+5. Que doit renvoyer la fonction quand `operations` est vide ?
 
 <details>
-<summary>Hint: how to structure your code</summary>
+<summary>Indice : comment structurer ton code</summary>
 
-Each operation needs exactly one case: a number string pushes `int(op)`; `"+"` pushes the
-sum of the last two items; `"D"` pushes double the last item; `"C"` pops. Once the loop
-ends, the answer is one built-in call away from the record.
+Chaque opération a besoin d'exactement un cas : une chaîne-nombre empile `int(op)` ; `"+"`
+empile la somme des deux derniers éléments ; `"D"` empile le double du dernier élément ; `"C"`
+dépile. Une fois la boucle terminée, la réponse n'est qu'à un appel de fonction intégrée
+(built-in) du registre.
 
 </details>
 
-Stuck? Ask Claude for a code snippet of the part that blocks you.
+Bloqué ? Demande à Claude un extrait de code pour la partie qui te bloque.
