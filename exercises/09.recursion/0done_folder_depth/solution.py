@@ -9,4 +9,10 @@ def folder_depth(folder: list) -> int:
         The number of folders on the longest path, starting with this folder (which
         counts as 1). Files do not add depth.
     """
-    pass
+    depth = 1
+
+    for item in folder:
+        if isinstance(item, list):
+            depth = max(depth, folder_depth(item) + 1)
+
+    return depth

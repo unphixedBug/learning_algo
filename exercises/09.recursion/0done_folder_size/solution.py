@@ -17,5 +17,3 @@ def folder_size(folder: list) -> int:
             total += folder_size(item)
 
     return total
-
-# [10, [20, 5], 2]

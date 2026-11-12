@@ -63,6 +63,17 @@ def solve(node) -> int:
 The base case is often **implicit**: a node with no nested part makes no recursive call,
 and the loop ends by itself.
 
+**The combine step depends on the question:**
+
+| Question | Start value | Combine | Example |
+|---|---|---|---|
+| How much in total? | `0` | `total += solve(item)` | `folder_size` |
+| How deep at most? | `1` (the current level) | `depth = max(depth, solve(item) + 1)` | `folder_depth` |
+
+**Values grow on the way back up.** Each call starts from its own start value. The answer
+is built from what the inner calls **return**: the deepest call answers first, and each
+parent uses that answer. Nothing is passed down.
+
 **What happens in the machine:** each call waits on the call stack with its **own local
 variables**. When the inner call returns, the waiting call resumes where it stopped.
 
@@ -75,6 +86,10 @@ variables**. When the inner call returns, the waiting call resumes where it stop
 
 - **Discarding the returned value:** `solve(item)` alone on a line computes the answer and
   throws it away. Assign it, add it, or return it.
+- **Overwriting instead of keeping the best:** `best = solve(item)` keeps only the last
+  item's answer. Use `best = max(best, solve(item))`.
+- **Forgetting the current level:** a nested part returns its own answer, not the
+  parent's. For a depth or a height, add `1`.
 - **Recursing on the same input:** calling `solve(node)` instead of `solve(item)` never
   gets closer to the base case: `RecursionError`.
 - **`return` inside the loop:** it stops the function at the first item, so the other
@@ -96,8 +111,10 @@ variables**. When the inner call returns, the waiting call resumes where it stop
 | Exercise | Difficulty | What it teaches | Where I struggled |
 |---|---|---|---|
 | `folder_size` | Easy | Loop for width, recursion for depth, combining with a sum | Using the returned value (combine step) |
+| `folder_depth` | Easy | Combining with `max`, adding the current level | `=` instead of `max`; how the value grows through the returns (not clear yet) |
 
 ## Next step
 
-Stay at level 0 for one more exercise, with a different combine step (for example `max`
-for the depth of a folder). Then move to level 1.
+Stay at level 0. Before a new exercise, trace `folder_depth([[[1]]])` on paper, one box
+per call, until "the value grows on the way back up" is clear. Then do one more level 0
+exercise.
