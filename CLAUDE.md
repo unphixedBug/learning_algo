@@ -12,6 +12,7 @@
 
 Il me reste plus beaucoup de temps, je dois mettre davantage mon cerveau dans l'algorithmie que dans l'anglais, alors à partir de maintenant, français dans le chat/cli et dans les .md des exo (on traduira les .md plus tard)
 Les summary restent en anglais
+Garde les mots techniques en anglais (afin de garder le lexique en anglais et pas mélanger)
 
 ## Commands
 

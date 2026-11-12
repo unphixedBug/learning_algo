@@ -1,80 +1,80 @@
-# Reverse a Linked List
+# Inverser une linked list
 
-**Pattern:** Linked list | **Difficulty:** Easy
+**Pattern :** Linked list | **Difficulté :** Easy
 
-## Problem
+## Problème
 
-You are given `head`, the first node of a singly linked list. It is `None` if the list is empty.
+On te donne `head`, le premier node d'une singly linked list. Il vaut `None` si la liste est vide.
 
-Reverse the list **by changing the links between the nodes**, then return the new first node.
+Inverse la liste **en changeant les liens entre les nodes**, puis retourne le nouveau premier node.
 
-You must keep the same node objects:
+Tu dois garder les mêmes objets node :
 
-- Do not create new nodes
-- Do not change the `value` of a node
+- Ne crée pas de nouveaux nodes
+- Ne modifie pas la `value` d'un node
 
-## Function to write
+## Fonction à écrire
 
 ```python
 def reverse_list(head: ListNode | None) -> ListNode | None:
 ```
 
-The `ListNode` class is already written for you in `solution.py`.
+La classe `ListNode` est déjà écrite pour toi dans `solution.py`.
 
-## Examples
+## Exemples
 
-### Example 1: several nodes
+### Exemple 1 : plusieurs nodes
 
 ```
 Input:  1 -> 2 -> 3 -> 4 -> 5 -> None
 Output: 5 -> 4 -> 3 -> 2 -> 1 -> None
 ```
 
-The function returns the node with the value `5`.
+La fonction retourne le node qui a la valeur `5`.
 
-### Example 2: two nodes
+### Exemple 2 : deux nodes
 
 ```
 Input:  1 -> 2 -> None
 Output: 2 -> 1 -> None
 ```
 
-### Example 3: one node
+### Exemple 3 : un seul node
 
 ```
 Input:  7 -> None
 Output: 7 -> None
 ```
 
-### Example 4: an empty list
+### Exemple 4 : une liste vide
 
 ```
 Input:  None
 Output: None
 ```
 
-### Example 5: duplicate values
+### Exemple 5 : valeurs en double
 
 ```
 Input:  1 -> 1 -> 2 -> None
 Output: 2 -> 1 -> 1 -> None
 ```
 
-## Constraints
+## Contraintes
 
-- `0 <= number of nodes <= 200000`
+- `0 <= nombre de nodes <= 200000`
 - `-1000 <= node.value <= 1000`
-- Target complexity: `O(n)` time and `O(1)` extra space
-- Standard library only
+- Complexité visée : `O(n)` en temps et `O(1)` en espace supplémentaire
+- Standard library uniquement
 
-The list can be too long for a recursive solution, because Python stops at about 1000 nested calls
-by default. Use a loop.
+La liste peut être trop longue pour une solution récursive, car Python s'arrête par défaut à environ
+1000 appels imbriqués. Utilise une boucle.
 
-## Why a linked list is useful for this problem
+## Pourquoi une linked list est utile pour ce problème
 
-A **linked list** is a chain of nodes. Each node holds a value and a link to the next node. The
-variable `head` only gives you the first node: to reach the others, you follow the links one by
-one.
+Une **linked list** est une chaîne de nodes. Chaque node contient une valeur et un lien vers le node
+suivant. La variable `head` ne te donne que le premier node : pour atteindre les autres, tu suis les
+liens un par un.
 
 ```
 head
@@ -83,116 +83,119 @@ head
 [1 | next] --> [2 | next] --> [3 | next] --> None
 ```
 
-A Python `list` keeps its items side by side, so it can jump straight to any position. A linked
-list cannot jump, but it can insert or remove a node by changing a few links, without shifting
-everything else.
+Une `list` Python range ses éléments côte à côte, elle peut donc sauter directement à n'importe
+quelle position. Une linked list ne peut pas sauter, mais elle peut insérer ou retirer un node en
+changeant quelques liens, sans décaler tout le reste.
 
-This problem teaches the main skill of the pattern: **changing links without losing the rest of the
-chain**. The nodes do not move. Only the arrows change direction:
+Ce problème enseigne la compétence principale du pattern : **changer des liens sans perdre le reste
+de la chaîne**. Les nodes ne bougent pas. Seules les flèches changent de sens :
 
 ```
-Before:  1 -> 2 -> 3 -> None
-After:   None <- 1 <- 2 <- 3
+Avant :  1 -> 2 -> 3 -> None
+Après :  None <- 1 <- 2 <- 3
 ```
 
-Each node only knows the node **after** it. Nothing can take you back to the previous node, and as
-soon as you overwrite a link, you may lose everything that came after it. That is the real challenge
-of this exercise.
+Chaque node ne connaît que le node **après** lui. Rien ne peut te ramener au node précédent, et dès
+que tu écrases un lien, tu risques de perdre tout ce qui venait après. C'est le vrai défi de cet
+exercice.
 
-**Real use cases:**
+**Cas d'usage réels :**
 
-- **LRU cache for a REST API:** a hash map plus a doubly linked list finds an entry in `O(1)`, and
-  moves it to the front in `O(1)`. It then removes the least recently used entry when the cache is
-  full.
-- **Music playlist:** "next" and "previous" follow links, and adding a track to the queue only changes
-  a few of them.
-- **Browser history:** each page links to the page before it and the page after it.
-- **`collections.deque` in Python:** it is built on a doubly linked list of blocks, which is why it
-  adds and removes at both ends in `O(1)`.
+- **LRU cache pour une API REST :** une hash map plus une doubly linked list trouve une entrée en
+  `O(1)`, et la déplace en tête en `O(1)`. Elle retire ensuite l'entrée utilisée le moins récemment
+  quand le cache est plein.
+- **Playlist musicale :** "suivant" et "précédent" suivent des liens, et ajouter un morceau à la file
+  ne change que quelques liens.
+- **Historique du navigateur :** chaque page est liée à la page d'avant et à la page d'après.
+- **`collections.deque` en Python :** elle est construite sur une doubly linked list de blocs, c'est
+  pourquoi elle ajoute et retire aux deux extrémités en `O(1)`.
 
-**How to recognize a linked list problem:**
+**Comment reconnaître un problème de linked list :**
 
-- The input is a `head` node, or the problem shows `1 -> 2 -> 3`. This pattern is usually named in
-  the problem, so recognizing it is easy
-- The words **node**, **next**, **head** or **tail** appear
-- You must **reorder, insert or remove** nodes, and you are told not to copy the values elsewhere
-- Items are added or removed in the middle often, but rarely read by position
+- L'input est un node `head`, ou le problème montre `1 -> 2 -> 3`. Ce pattern est généralement nommé
+  dans l'énoncé, donc il est facile à reconnaître
+- Les mots **node**, **next**, **head** ou **tail** apparaissent
+- Tu dois **réordonner, insérer ou retirer** des nodes, et on te dit de ne pas copier les valeurs
+  ailleurs
+- Des éléments sont souvent ajoutés ou retirés au milieu, mais rarement lus par position
 
-## Useful Python syntax
+## Syntaxe Python utile
 
 ```python
-# A node is an ordinary object with two attributes
+# Un node est un objet ordinaire avec deux attributs
 first = ListNode(1)
 second = ListNode(2)
 first.next = second         # 1 -> 2 -> None
 
 first.value                 # 1
-first.next                  # the node that holds 2
+first.next                  # le node qui contient 2
 first.next.value            # 2
 second.next                 # None
 
-# Walking through a list, from the first node to the last
+# Parcourir une liste, du premier node au dernier
 current = first
 while current is not None:
     print(current.value)
     current = current.next
 
-# Compare with None using "is", not "=="
+# Comparer avec None en utilisant "is", pas "=="
 if current is None:
     ...
 
-# Careful: following a link from None raises an error
+# Attention : suivre un lien depuis None lève une erreur
 empty = None
 empty.next                  # AttributeError
 
-# Assigning several variables on one line
+# Assigner plusieurs variables sur une ligne
 x, y = 1, 2
-x, y = y, x                 # swap: x is 2 and y is 1
+x, y = y, x                 # swap : x vaut 2 et y vaut 1
 ```
 
-**The most important distinction of this pattern:**
+**La distinction la plus importante de ce pattern :**
 
 ```python
-current = current.next      # moves the variable: the list does not change
-current.next = other        # changes a link: the list is now different
+current = current.next      # déplace la variable : la liste ne change pas
+current.next = other        # change un lien : la liste est maintenant différente
 ```
 
-A variable is only a **label** placed on a node. Moving a label changes nothing in the list.
-Assigning to `.next` is the only thing that changes the chain.
+Une variable n'est qu'une **étiquette** posée sur un node. Déplacer une étiquette ne change rien
+dans la liste. Assigner à `.next` est la seule chose qui modifie la chaîne.
 
-**The cost of common operations:**
+**Le coût des opérations courantes :**
 
-| Operation | Python `list` | Linked list | Why |
+| Opération | `list` Python | Linked list | Pourquoi |
 |---|---|---|---|
-| Read the item at position `i` | `O(1)` | `O(n)` | A linked list must follow the links from `head` |
-| Insert or remove at the start | `O(n)` | `O(1)` | A `list` shifts every item, a linked list changes one link |
-| Insert or remove after a node you already have | `O(n)` | `O(1)` | Only the links around that node change |
-| Search for a value | `O(n)` | `O(n)` | Both must check the items one by one |
+| Lire l'élément à la position `i` | `O(1)` | `O(n)` | Une linked list doit suivre les liens depuis `head` |
+| Insérer ou retirer au début | `O(n)` | `O(1)` | Une `list` décale chaque élément, une linked list change un lien |
+| Insérer ou retirer après un node que tu as déjà | `O(n)` | `O(1)` | Seuls les liens autour de ce node changent |
+| Chercher une valeur | `O(n)` | `O(n)` | Les deux doivent vérifier les éléments un par un |
 
-## Before you code
+## Avant de coder
 
-Answer these on paper. Tell Claude your answers if you want to check them.
+Réponds à ces questions sur papier. Donne tes réponses à Claude si tu veux les vérifier.
 
-1. Draw `1 -> 2 -> 3 -> None`, then draw the reversed list. For each node, what does `next` point to
-   before and after? What must the `next` of node `1` become?
-2. You are on node `2`, and you set its `next` to node `1`. How can you now reach node `3`? What
-   should you have done before changing the link?
-3. Node `2` needs to point back to node `1`, but a node does not know the node before it. How can
-   your code still have that information when it reaches node `2`?
-4. When your loop ends, which node is the new first node? Is the variable you used to walk through
-   the list still pointing to it?
-5. Run your idea by hand on an empty list and on a single node. Do you need a special case for them?
+1. Dessine `1 -> 2 -> 3 -> None`, puis dessine la liste inversée. Pour chaque node, vers quoi pointe
+   `next` avant et après ? Que doit devenir le `next` du node `1` ?
+2. Tu es sur le node `2`, et tu mets son `next` sur le node `1`. Comment peux-tu maintenant atteindre
+   le node `3` ? Qu'aurais-tu dû faire avant de changer le lien ?
+3. Le node `2` doit pointer en arrière vers le node `1`, mais un node ne connaît pas le node avant
+   lui. Comment ton code peut-il quand même avoir cette information quand il arrive au node `2` ?
+4. Quand ta boucle se termine, quel node est le nouveau premier node ? La variable que tu as
+   utilisée pour parcourir la liste pointe-t-elle encore dessus ?
+5. Déroule ton idée à la main sur une liste vide et sur un seul node. As-tu besoin d'un cas
+   particulier pour eux ?
 
 <details>
-<summary>Hint: how to structure your code</summary>
+<summary>Indice : comment structurer ton code</summary>
 
-At each step, your code needs to know about three nodes: the one you are on, the one before it, and
-the one after it. Decide what each of them is **before the first step**. Then write the steps in an
-order that never loses the rest of the chain.
+À chaque étape, ton code doit connaître trois nodes : celui sur lequel tu es, celui d'avant et celui
+d'après. Décide ce que vaut chacun d'eux **avant la première étape**. Puis écris les étapes dans un
+ordre qui ne perd jamais le reste de la chaîne.
 
 </details>
 
-If `pytest` never finishes, press `Ctrl+C`: your loop probably never ends, for example because the
-links now form a circle or the walking variable never moves.
+Si `pytest` ne se termine jamais, appuie sur `Ctrl+C` : ta boucle ne s'arrête probablement jamais,
+par exemple parce que les liens forment maintenant un cercle ou que la variable de parcours ne
+bouge jamais.
 
-Stuck? Ask Claude for a code snippet of the part that blocks you.
+Bloqué ? Demande à Claude un code snippet de la partie qui te bloque.

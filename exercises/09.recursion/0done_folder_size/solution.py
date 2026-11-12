@@ -8,4 +8,14 @@ def folder_size(folder: list) -> int:
     Returns:
         The total size of all the files, including those in the subfolders.
     """
-    pass
+    total = 0
+
+    for item in folder:
+        if isinstance(item, int):
+            total += item
+        elif isinstance(item, list):
+            total += folder_size(item)
+
+    return total
+
+# [10, [20, 5], 2]
